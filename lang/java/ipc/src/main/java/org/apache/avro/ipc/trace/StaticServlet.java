@@ -21,8 +21,8 @@ package org.apache.avro.ipc.trace;
 import java.io.IOException;
 import java.net.URL;
 
-import org.mortbay.jetty.servlet.DefaultServlet;
-import org.mortbay.resource.Resource;
+import org.eclipse.jetty.servlet.DefaultServlet;
+import org.eclipse.jetty.util.resource.Resource;
 
 /**
  * Very simple servlet class capable of serving static files.

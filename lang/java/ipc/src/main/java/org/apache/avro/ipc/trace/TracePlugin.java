@@ -35,10 +35,10 @@ import org.apache.avro.ipc.HttpServer;
 import org.apache.avro.ipc.RPCContext;
 import org.apache.avro.ipc.RPCPlugin;
 import org.apache.avro.ipc.specific.SpecificResponder;
-import org.mortbay.jetty.Server;
-import org.mortbay.jetty.bio.SocketConnector;
-import org.mortbay.jetty.servlet.Context;
-import org.mortbay.jetty.servlet.ServletHolder;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.ServerConnector;
+import org.eclipse.jetty.servlet.ServletContextHandler;
+import org.eclipse.jetty.servlet.ServletHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -342,17 +342,17 @@ public class TracePlugin extends RPCPlugin {
    */
   protected void initializeClientServer() {
     clientFacingServer = new Server();
-    Context staticContext = new Context(clientFacingServer, "/static");
+    ServletContextHandler staticContext = new ServletContextHandler(clientFacingServer, "/static");
     staticContext.addServlet(new ServletHolder(new StaticServlet()), "/");
-    Context context = new Context(clientFacingServer, "/");
+    ServletContextHandler context = new ServletContextHandler(clientFacingServer, "/");
     context.addServlet(new ServletHolder(new TraceClientServlet()), "/");
     boolean connected = false;
-    SocketConnector socket = null;
+    ServerConnector socket = null;
     
     // Keep trying ports until we can connect
     while (!connected) {
       try {
-        socket = new SocketConnector();
+        socket = new ServerConnector(clientFacingServer);
         socket.setPort(clientPort);
         clientFacingServer.addConnector(socket);
         clientFacingServer.start();
