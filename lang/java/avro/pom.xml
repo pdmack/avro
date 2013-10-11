@@ -42,37 +42,6 @@
         </includes>
       </resource>
     </resources>
-    <plugins>
-      <plugin>
-        <groupId>com.thoughtworks.paranamer</groupId>
-        <artifactId>paranamer-maven-plugin</artifactId>
-        <version>${paranamer.version}</version>
-        <executions>
-          <execution>
-            <id>paranamer-test</id>
-            <configuration>
-              <sourceDirectory>${project.build.testSourceDirectory}</sourceDirectory>
-              <outputDirectory>${project.build.testOutputDirectory}</outputDirectory>
-            </configuration>
-            <phase>process-test-classes</phase>
-            <goals>
-              <goal>generate</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <executions>
-          <execution>
-            <goals>
-              <goal>test-jar</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
   </build>
 
   <profiles>
